@@ -1,0 +1,726 @@
+React is componant based structure and reused in angular or vue.
+it is declerative - tell reat what u want ract will buid the actual UI
+eg- u go to artist and drw the landscape u dont tell how to draw it. let artist drw it 
+eg for imperative or non-declerative  like asking 5 year child to drwa by sayinng 1st draw mountan, then rivers then tree step by step and u control flow of lansdscape.
+react handles criticle ui and make it simple by abstrcting a way by componant 
+Dom handles gracefuly in react, and react dont care about rest of the technology stack you r using in application , you can seamlessly intigrate react into any ur application 
+once had a good hand on react then can enter inn world of ract natuve mobile app,
+its great adtion to skillset
+
+Prerequisites:
+HTML, Css, Javascript fundamental. 
+ES6
+javaascript: this keyword, filter, map and reduce. 
+es6: let const , arrow function, template literal, default paramater, object literal, rest and spread operatorr and destructuering assignmnt 
+
+Content: fundamanetals, http, routing, redux, utilities to work wit react, 
+
+2. once nod and vscode setted use, npx create-react-app app-name to create app. 
+
+2.1  methods: 1. npx - npx creaet-react-app app-name , its wit npm packge runner without installing npm react globaly everytime
+2. npm install create-react-app -g 
+
+3. file and folder: t root 3 filders, 1. pkg.json. had dependanciees and script to run application and test. 
+3 folders like node-modules , has depen, 2. public has resources and index.html has root dom node div , react conntrols everything with this single root div element  3. src folder which we working for devlopment. index.js has  in our main app component is rendored in root dom node in our hello-wporld application. also App.css file for styling and App.test fot unit test, we hve index.css to apply style to body tag and logo.svg in app component and service-worker for PWAs and will ignore for now   
+
+lec 4:  root component structure: lets suppose have 4 compo header, sidenav, main content and footer, and footer and compo can be reusable as left sidenav can be usded in right sidenav and can be compo inside other comp 
+
+Component in code: comp code in the js file. also we can have jsx extension . for now js 
+eg. app.js has AppComponent 
+2 typs of component: 1. statless functional component: it has simpple js function eg. 
+function welcome(props){
+    return <h1>Hellow from function comp, this will only return this html tag not the rendor method is eligible her. </h1>
+}
+2. stateful class component : in this comp type class exxtending component class, and rendor method returninig html. 
+
+class welcome extends react-component {
+    rendor(){
+    return <h1>Hellow from class comp, this will only return this html tag not wit  rendor method is eligible her. </h1>
+    }
+}
+
+what wee learn in comp; comp describe a part of user interfaces 
+can  be reusable and and can be nestaeed inside other comp. 
+has 2 type of comp. 
+
+vd 5. functional component: its js function takes properties as props and gives html or jsx 
+App.js 
+function App() {
+  return (
+    <div className="App">
+      <header className="App-header">
+      Hello Ratan
+      <Greet />
+      </header>
+    </div>
+  );
+Greet.js 
+  import React from 'react';
+// function Greet(){
+//     return <h1> Hello  Rata from Greet comp</h1>
+// }
+const Greet = () => {
+    return <h1> Hello  Ratan from Greet comp</h1>
+
+}
+export default Greet;
+
+or 
+export const Greet = () => {
+    return <h1> Hello  Ratan from Greet comp</h1>
+
+}
+but have to import as import {Grret} in app comp 
+
+
+vd 5. class component. 
+its similar to es6 class. as similar to function comp it takes props optionaly and return html  additionaly maintain private information state to that cmpo and used to represent ui. 
+
+import React, { Component}  from 'react';
+
+export class GreetFromCLasscomp extends Component {
+    render() {
+        return <h1>Welcome Ratan from GreetFromClasscomponent</h1>
+    }
+}
+export default GreetFromCLasscomp;
+
+Comparison: function is simplle with props use as much , has absence of this keyword. solution without using state. without complecated use show preeatation nd dull component.
+in class cotain complecated ui logic, caled as stateful, smart, container component. more feature rich 
+
+vd 7: hing like html caled as JSX.
+Hooks: introduced in vr 16 now can use states inside function comp also.
+ using state and lidecycle methods and this keyword. 
+ after understanding state, event bimding and lifecycle hooks in class component.
+
+ JSX: what and why. javascript xml. is extention of js lang syntax. 
+ write XML-like code for element and component,
+ JSX tags have a name, atributes and children
+ JSX not neccesory to write react applications.
+ JSX makes ur react code simpler and elegent.
+ JSX ultimately transoile to pure js which is understood by the browser. 
+
+    jsx sysntax.  return <h2>Hello jsx</h2>
+}
+without jsx sysntax can create simple html element . 
+eg. return Reacr.createElement('h2', null, "hello ratan");
+it taking 3 parameter , tag, property its oprional, and childeren for tag as hello ratan or any child node.
+
+Reacr.createElement('div', null, React,createElement('h1',{id: "hello", className: 'dummyclass}, "hello ratan"));
+JSX diffrences: for avoiding using reserved keywords.
+ class => className, for=> htmlFor, 
+ camelcase property naming convention. oclick=> onClick, tabindex=> tabIndex. 
+
+ vd 9: props.
+ export const Greet = (props) => {
+   props.name ="vishwas" // gives err cant assign to read only property name of object 
+    return <div>
+    <h1> Hello  {props.name} a.k.a {props.akname} from Greet comp</h1>
+{props.children}
+    </div>
+ }
+
+ props r immutable ie value not change. 
+
+ 10 vd: if react props r imutable then how should we change state object value. 
+ props vs state. 
+ get passed to component while state is managed within d component,
+ props r function parameyer while state is variables declered in function body
+ props are immtable vs state can be chaged .
+ props in functions component and this.props in class compoent, 
+ usestae Hook in functional component and this.state in class comonent .  
+ state can be change data in component. 
+
+ export class Welcome extends Component {
+    constructor(){
+        super()
+        this.state = {
+            message: "Welcome Visitor from state"
+        }
+    }
+    changeMessage() {
+        this.setState({
+            message: "thank you for subscribing"
+        })
+    }
+    render() {
+        return <div><h1>{this.state.message}</h1>
+        <button onClick={()=>this.changeMessage()}>Subscribe</button>
+        </div>
+    }
+
+    11. state and setstate method in react 
+    1.always make use of setState and never modify the staet directly.
+    2.code has to be executed after the stae has been updated? place that code in call back function which is second argument to setState method.
+     Increment(){
+    this.setState({
+      count: this.state.count+1
+   
+  }, ()=>{ console.log('callback value '+this.state.count);})
+  //  this.state.count = this.state.count + 1;
+  }
+    3. When you have to update state based on prebious state value, pass in a function as an argument instead of the regular object.
+
+    Increment(){
+    this.setState((prevstate, props) => ({
+      count: this.state.count+1
+   
+    }))
+  console.log('callback value '+this.state.count)
+  //  this.state.count = this.state.count + 1;
+  }
+  rendor(){
+    return <div> <div> Count = {this.state.count}</div>
+    <button onclick={()=> this.increment()}> increment</div>
+  }
+
+  12. Destrucuring props and state, improve the readability. 
+  function component. 1. destruturing parameter. instead of const Greet = (props) => {}
+  write const Greet = ({name, Heroname}) => { return ( <div> <h1> Hello {name} aks {heroname}</h1> </div> )}
+
+  2. classc omponant: in class comp destructure in rendor method: 
+  class welcome exrends component {
+    rendor() {
+      const {name, heroname} = this.props
+      or const {state1, state2} = this.state // syntax for state ddestruturing 
+      return ( <h1> welcome {name} aka :{heroname})
+    }
+  }
+
+  13. event handling: eentnames should in camalcase. 
+  on events write function n not function call. like and specifoed method is within { } {clickhandler()}
+
+
+  functional comp. and class comp same, just in classs comp can give {this.clicHandler}
+
+  13. binding event handlers
+  cos this keyword in js, why event binding required. 
+  4 types: 1. in binding in rendor method: <button onClick={this.handleClick.bind(this)}> // not recommended , has performnce issue.
+  2. bind in redor: <button onClick={ () => this.handleClick()}> good method to pass paramteres
+  3. bindiing in contructor as. this. handleClick = this.handleClick.bind(this);
+  and in rendor <button onClick={this.handleClick}>
+   handleClick(){
+        this.setState({
+            message: "hello, welcome"
+        })
+
+  15. props n methos: communication bet child and parent com. 
+ not worked 
+
+ 16. conditional rendoring. 
+ 4 approches: if/else, element variables, ternary conditional operator, short circuits operator.
+    render() {
+        //short circuits
+        return  this.state.isLoggedin && <div>  Welcome Ratan</div>
+        //ternary opre
+        // return(
+        //     this.state.isLoggedin? <div>  Welcome Ratan</div> :<div>  Welcome Guest</div>
+        // )
+
+
+        // element apprioch
+
+    //     let message 
+    //     if(this.state.isLoggedin){
+    //         message = <div>  Welcome Ratan</div>
+    //     }
+    //     else {
+    //          message = <div>  Welcome Guest</div>
+    //     }
+    //    return <div>{message}</div>
+        // if(this.state.isLoggedin){
+        
+        //   return   <div>  Welcome Guest</div>
+        // }
+        // else     return   <div>  Welcome Ratan</div>
+    // return (
+    // //   <div>
+    // //       <div>  Welcome Guest</div>
+    // //       <div>  Welcome Ratan</div>
+    // //   </div>
+    // )
+  }
+}
+
+17. list rendoring to show any list of names orders. 
+map method:  it crate a new array from result of calling function for every element frm main arr.
+eg. mainarr = [1,2,3,4,5], its just transform the arry to new ar with function computed value. 
+newarr = mainarr.map(x => x*2);
+so newarr -s [2,4,6,8,10]
+ in react will use map to transform jsx instread of list arr elememtn
+
+ export default function NameList() {
+    const names = ['Ratan', 'Dinesh', 'DInanath']
+    const Personnames = [ {
+      name:'Ratan'
+      age: 25,
+      skill: React
+      },
+      {
+      name:'Dinesh'
+      age: 25,
+      skill: angular
+      },
+      {
+      name:'Dina'
+      age: 25,
+      skill: Vue
+      }]
+
+  return (
+    <div>{
+      names.map(name=> <h2>{name}</h2>)
+    }
+    </div>
+    or 
+       const names = ['Ratan', 'Dinesh', 'DInanath']
+    const nameList =  names.map(name=> <h2>{name}</h2>)
+  return <div>{nameList}</div>
+  )
+}
+
+   // const nameList =  names.map(name=> <h2>{name}</h2>)
+    const PersonList = Personnames.map(person => <Person person={person} />) 
+  return <div>{PersonList}</div>
+
+} 
+export default function Person({person}){
+  return (
+    <div>
+      <h3>
+         Name is {person.name}. Age is {person.age} and Skills is {person.skill}
+    </h3>
+
+error. each child shiould have uniiue key and that unique to list
+    18. list and keys in react.
+      const PersonList = Personnames.map(person => <Person key={person.id} person={person.toString()} />) 
+  return <div>{PersonList}</div>
+  // that keyprop is neccesory to avoid that err. 
+  and we cant use this key prop in child coz is used to identify list item updation changes. 
+  ad refresh ui onky for newly upadted added removed elements. 
+
+  19. index as key when rendoring list.  
+  wehn to use index as key.
+  1. the items in ur list do not have unique id
+  2. the list is a static list and will not change. 
+3. the list will never be reordered or filtered
+coz it asum item according to index from 0 to name
+
+20. styling the CSS. 
+4 ways: css stylesheet, inline styling, css module, css in js libraries. 
+1. using regular  styles sheets. stylesheet.js 
+  create mystyles.css file n import it in stylescom.js and use as it is 
+    <div>
+      <h1 className={ `${className} font-xl`}>Stylesheets</h1>
+    </div>
+    2. inline styles. 
+    <h2 style={heading}>Inline styles</h2>
+its streightforward directly create object as const header={ fontSize:'23px', color : 'red'}
+
+3. css module : need react version > 2
+filesname must suffise witheg  mystyle.module.css 
+modules cannot be used in child component coz its created object like styles.success . 
+
+21. basics of form handling
+controlled component:   means values of html element is controlled by react.
+Form.js has all coed. 
+22. 23, component lifecycle > 16.
+4 phases, mounting, updating, unmounting, error handlling
+1 mounting: when instance of component created and inserted into dom.
+methods: 1. constructor- called when cop is created, binding state and binding event handler, no not side effect ie http call, have access to props only after initialting super by passing props call super(props), its the place directly overrites this.state diled. 
+        2. static getDerivedStatefromProps- realrly used, calls when state od comp depends on changes in propss over time. it set the state, dont cause side efects, ie http request. 
+         3.rendor- require only in class comp, reads props and state and return jsx, do not change state or interact with dom or make ajax calls. children method lifecycle mrthods also executed. 
+         4. componentDidMount- invoked immediately after a comp and and child comp have been rendored to the dom, causse side rffect. ex interact with dom or perform any ajax calls to load data
+          
+2. updating: called when copm is re-rendored as a result of change to either its props or state. 
+method: 
+ 1. static getDerivedStateFromProps(props, state)-this calls everytime component is re0rendored, it sets the state from props, do not cauese side effect ex- http requeest. 
+  2. shouldCompnentUpdate() - dictates if component should re-rendor or not. use to performance optimization. do not cause, sets setstate method.
+  3. rendor,
+  4.   getSnapshotBeforeUpdate(prevProps, prevState) - called right before d changes from virtual domr to be reflected in the dom., capture some info from dom, method will return null or some value, returned value will be passed as the thrid parameter to next method. 
+ 5.  componentDidUpdate- calld after rendor is finsihed in re-rendor cycles, cause side effect ie. an make ajax cals , calls only when changs in props to avoid unnecesory ajax call. 
+3 unmounting: when a component is beiing removed from dom.
+method: componentWillUnmount()- invokes immidiayely before a comp is unmounted n destroyed., canceling any network request, removing handlers, caceling any subsriptio  and also invalidating timers., do not call the setState methods. 
+4. error handling: clled when is an error during rendoring, in lifecycle method,or constructor of any child component. 
+method:
+ 1.  static getDerivedStateFromError()
+  2.  componentDidCatch()
+
+22 mounting lifecycle methods
+
+24. react fragments: 
+it let is group list of the element without adding extra nodes. in it. it accept elemetv as key 
+   <React.Fragment>
+        <h1>fragmentDeml</h1>
+      <p>This decribe fragment dem component</p>
+      </React.Fragment>
+
+      26. pure component:
+      we can create component by extending pureComponent class.
+      pure comp implements the shouldComponentUpdate lifecycle method by performing a shalow comparison on props ans state of the component.
+      if der is no diffrence compoent will not re-rendored for performance boost.
+      its aso good idea to ensure that all children component r also pure to avoid unexpexcted behavior.
+      never mutate the state. always return a new object that reflect new state. 
+      
+   
+
+27. memo pre comp only work with class comp. to fil that gap memo comes into picture. 
+just have to export deafult React.Memo(CompNAme);
+we compulsory eed react version 16.6 to this eacher.  
+
+28. refs ; used to accessing dom element in react 
+2 ways, 1 React.createRef() , 2. cbref method.
+1. 3 steps. create this.inputref =  React.createRef ref varible, then use that in input element <input type="text" ref={this.inputref} />, then in componentDidMount() write this.inputRef.current.focus()
+2. 4 steps, create property and then create method to assign element to property, <input type="text" ref={this.setCbRef} />, then in compdidmonut if(this.cbRef){ this.bRef.focus()}
+this.cbRef = null, this.setCbRef = element => { this.cbRef = element}
+
+29. refs with classs component 
+here we r passing refs from parent comp to child comp. 
+
+30. refs forwarding: is technique to forward refs to any child element 
+FRParentInput rg. with child has  const FRIput = React.forwardRef(props, ref) => {
+  return (
+    <div>
+      <input type="text" ref={ref}/>
+    </div>
+  )
+}
+
+31. portals: provides way to rendor children into a dom node that exists outside of hirarchy of parent component,
+genraly dom arranged as tree, but react portals has ability to break that dom tree.
+why we need, sometime we need a model , popup or additional functionaly requiress other than main root element that time we need to rendor elemnt with new dom node. 
+eg. will add html element in index.html as <div id="protal-root"></div>   
+ return ReactDOM.createPortal(
+        <h1>
+          Protals demo app
+        </h1>,
+        document.getElementById('portal-root')
+      )
+
+32. Error boundary. Handling plase methods. 
+a class comp that implements either one or both of lifecycle methods getDerivedStateFromError or componentDidCatch  become an error boundary. 
+instead of breaking entire application, let it broke only component which is has problem .  and achive this with errror boundary 
+error boundarries are react components that catch javascript error in der child comp tree, log those errprs and display fallback ui. 
+a class comp becomes an error boundary by defining either or both of getDeraivedFromError and componentDidCatch lifecyce methods.
+placement of err bou matters as it if entire app leads to fallback ui or just the comp causing problem
+. provide a way to gracefully handle error in application code. 
+
+33. haigure order compoent : suppose want to add functionality like onclick and onhover on same btn and we need to write duplicated same code for click and hover, to avoid that we can use common funtionality to avoid duplocation with the haihure order component.
+why haigh o c. to share common functionality between component. HOC.
+its a pattern where a function takes a copoment as argument and return new component.
+
+  35. hoc:  passing props to wrapped comp as {...this.props}
+
+37. rendor props:
+the term rendor props refers to a technique for sharing code betwn react comp using a prop whose value is a function. 
+why , what is need:   
+
+
+41. react and HTTP.
+axios. 
+PostListHttp comp. 
+import React, { Component } from 'react'
+import axios from 'axios';
+export default class PostListHttp extends Component {
+    constructor(props) {
+      super(props)
+    
+      this.state = {
+         posts: [],
+         errMessg: ""
+      }
+    }
+    componentDidMount(){
+        axios.get('https://jsonplaceholder.typicode.com/posts1')
+        .then(response =>{
+            console.log(response)
+            this.setState({posts: response.data})
+        })
+        .catch(error=> {
+            console.log(error)
+            this.setState({errMessg:'error retriving data'})
+        })
+    }
+    
+  render() {
+      const {posts, errMessg} = this.state
+    return (
+      <div>
+        List of posts
+        {
+            posts.length ? 
+            posts.map(post => <div key={post.id}>{post.title}</div>) :
+            null
+        }
+        {
+            errMessg ? <div>{errMessg}</div> : 
+            null
+        }
+      </div>
+    )
+  }
+}
+
+post dataimport React, { Component } from 'react'
+import axios from 'axios'
+class PostrequestHttp extends Component {
+    constructor(props) {
+      super(props)
+    
+      this.state = {
+         userId: '',
+         title:'',
+         body:''
+      }
+    }
+    changeHandler = (e) => {
+        this.setState({[e.target.name]: e.target.value })
+    } 
+    submitHandler = e => {
+        e.preventDefault()
+        console.log(this.state)
+        axios.post('https://jsonplaceholder.typicode.com/posts1',this.state)
+        .then(res=>{
+            console.log("response "+JSON.stringify(res.data))
+        })
+        .then(err=>{
+            console.log("error is "+err)
+        })
+    }
+  render() {
+      const {userId, title, body} = this.state;
+    return (
+      <div>
+        <form onSubmit={this.submitHandler}>
+            <div>
+                <input
+            type="text"
+            name="userId"
+            value={userId}
+            onChange={this.changeHandler}
+            />
+            <br/>
+             <input
+            type="text"
+            name="title"
+            value={title}
+            onChange={this.changeHandler}
+            />
+            <br/>
+
+                <input
+            type="text"
+            name="body"
+            value={body}
+            onChange={this.changeHandler}
+            />
+            </div>
+            <button type="submit">Post data</button>
+        </form> 
+      </div>
+    )
+  }
+}
+
+export default PostrequestHttp
+
+useState hook.'
+import React, {useState} from 'react'
+
+ function CounterArrHooks() {
+
+    const [Items, setCount] = useState([])
+
+    const AddItem = () => {
+setCount([...Items, {
+    id: Items.length,
+    value:Math.floor(Math.random()*10)+1
+}])
+    }
+  return (
+    <div>
+      <button onClick={AddItem}>Add item</button>
+      <ul>
+          {Items.map(item => (
+              <li key={item.id}>{item.value}</li>
+          ))}
+      </ul>
+    </div>
+  )
+}
+
+export default CounterArrHooks
+
+50. useEffects : it calls after every rendor of jsx 
+import React, {useState, useEffect} from 'react'
+
+ function EffectHookCount() {
+    const [count, setCount] = useState(0)
+
+    useEffect(()=>{
+        document.title=`you clicked ${count} times`
+    })
+  return (
+    <div>
+      <button onClick={()=> setCount(count+1)}>clicked  {count} times s</button>
+      <h2>count value is {count}</h2>
+    </div>
+  )
+}
+
+export default EffectHookCount
+
+53. countexample for classs and hook with useEffect and useState 
+we have componentWillUnmount has power to clean the code from not used component method and function. 
+ut how to achive this functinality with useeffect or hooks methods. 
+here we can write that cean up code in return function of useeffect 
+
+54. useeffect with incorrect dependancy, to update data with some methods like function in setCount. 
+
+import React, {useState, useEffect} from 'react'
+
+const IntervalHookCounter = () => {
+     const [count, setCount] = useState(0)
+
+    // const tick =() => {
+    //      setCount(countpass => countpass+1)
+    //  }
+      useEffect(()=> {
+         const interval = setInterval(()=> setCount(countinc => countinc+1), 1000)
+         return ()=> {
+             clearInterval(interval)
+         }
+     },[])
+  return (
+    <div>
+      in Hook COunter{count}
+    </div>
+  )
+}
+
+export default IntervalHookCounter
+
+for class eg. write this.interval = setInterval(this.tick, 1000) inside componentDIdMount()
+and clearInterval in the componentwillUnmount. 
+
+55. fetching data with useeffect. with axios , DataFetchHttp
+
+56. gettinng induvuadual post by get btn. 
+
+58. useContext 
+to interaact within component. passing th einformation grom subcomponent to other tree of components of  other childs.
+with props its not possible to pass data directly in partiular component. thats why cotext comes in picture.
+context: conntext provide a way to padd data through component tree without having to pass props down manualy at every level. 
+how complex apu work:  i have 3 levels of component. a b and c, have to padd data from a to c. using context. 
+3 steps, 1. create context. 
+compo a. export const UserContext = React.createContext()
+export it and import it in other comp, like import {UserContext} from compa.
+
+2. provide value from comp a.
+pass context to c comp.
+return 
+<UserContext.provider value={vishvas}>
+<ComponantC/>
+</UserContext.provider>
+
+3. consume value from compa
+componantC() {
+return 
+<div>
+<UserContext.consumer>
+{user => { return <div>User Contect name is {user}}}
+</Usercontext.Consumer>
+</div>
+
+60. useContext: first 2 steps r same just 3rd step consume is changed. 
+import {UserContext, ChannelContext} from '../App'
+const ContextUserB = () => {
+  const user = useContext(UserContext)
+  const channel = useContext(ChannelContext)
+
+  61. useReducer. 
+  useReducer is hook that used for state managenrt.
+  is this alternative to useHook. then whats the diffrence. ,
+  useState is built usig useReducer.
+  when to usereducer vs useState,
+  Hooks so far, useState - state, useEffect - effect, useContext- context, useReducer - reduce. 
+
+  reducer vs useReducer
+  reduce in javascript                usereduce in React
+  array.reduce(reducer,initialvalue)    usereduce(reducer,initialSate)    
+  singleVal = reducer(accu, itemval)    newState = reducer(currentSate, action)
+  reduce method returns a single value  useReducer returns pair of values [newState, dispatchvalu]
+
+   Summary: 
+   used to state management in react.
+   is related to reduceer function, it takes 2 parameter, useReducer(reducer, initial state. )
+  reducer(currentState, actin)
+
+63. usereducer, complex state and action.  we ca make state of object and action boh with reducer. ReducerCounterTwo  
+64. multiple useReducers making use of same rducer funtion, it will avoid d complexity of merging the state if its object and it prevent us to writing duplicate code , ReducerCounterThree
+
+65. usereducer with local state management. 
+useReducerocal state management.
+we want to share betwn component- global state management. 
+useReducer + useContext 
+
+scensrio. consider app with 3 tree comp.saperatee   a b and c.  
+//not completed.
+
+66. fetching data with usereducer. ReducerDataFetchOne
+
+68. 
+useState    vs   useReducer
+Scenario       UseState                 useReducer
+
+Type of state number, strinng, boolean   Object or array
+no. of state
+ transitions  one 0r two                  too many.
+ if state r
+  related      No                           Yes
+  Buzieness logic - no buzniness logic    complex buziness logic
+  Local vs global   local                 global 
+  
+  69. useCallback hook.
+  what? 
+  useCallback is a hook that will reurn a memoized version of cllback function that only changes if one of the dependancy has changed. 
+
+  why: it is usefull when passing callback to iptimized child component that relay on reffence equality to prevent unnecessory rendors.  
+  how. its jjust avoid rerendor component. 
+   // not coded. 
+
+   70. use memo hook. 
+   useCallback cches d provided function itself whereas useMemo invokes provided function and caches d result.
+
+   71. userefs. 
+   conside login form. as form redors unme input field need to be focused 
+import useEffect and userefs
+const inputRefs = userefs(null)
+useeffect(()=>{
+  inputRef.current.focus()
+})
+<div>
+<input ref={inputRef} type='text' />
+</div>
+
+2nd usage of userefs hook.
+suppose we want to clearinterval from butt click which is in in useeffecthook functin setinterval. so cant cant do that from bt click. coz is inside return of useeffect hook.
+
+s0 do like this.  clearing intervalTimer from eventHnadler  
+intervalRef = useRefs()
+
+useeffect(()=>
+intervalRef.current = setInterval(()=> incfeasevalue(), 1000)
+return () =>{
+  clearinterval(intervalRef.current)
+}
+)
+
+<button onclick={(=> clearinterval(intervalref.current)}> click </btn>
+
+it remebers data even oafter other component rerendors 
+
+
+this is end of hoks in react. some other r useimperative handler, useelaayout, useDebug value ssed very rarely
+
+73. Custom hooks in react. 
